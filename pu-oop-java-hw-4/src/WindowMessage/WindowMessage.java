@@ -15,11 +15,4 @@ public class WindowMessage extends JDialog {
         pack();
         setVisible(true);
     }
-
-    public static void render(JFrame parent, String title, String message) {
-        new WindowMessage(parent, title, message);
-    }
-
-    public static void win(JFrame parent, String title, String message, String s) {
-    }
 }
