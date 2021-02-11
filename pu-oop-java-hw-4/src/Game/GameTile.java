@@ -20,14 +20,12 @@ public class GameTile extends JFrame {
         boardGrid(g);
     }
 
-    
     /**
      *
      * @param boardGrid - чертае дъската
      * @param randTiles - за случайния принцип на GPS плочките
      */
 
-    
     void boardGrid(Graphics g) {
         g.setColor(Color.black);
         for (int i = 0; i <= 700; i += 100) {
@@ -36,7 +34,7 @@ public class GameTile extends JFrame {
             }
         }
     }
-    
+
     private int randTiles() {
         Random random = new Random();
         int rand = random.nextInt(8);
@@ -55,11 +53,11 @@ public class GameTile extends JFrame {
         int blueTile5 = randTiles();
 
         g.setColor(Color.BLUE);
-        g.fillRect((blueTile1*100)+20,122, 99, 99);
-        g.fillRect((blueTile2*100)+20,322, 99, 99);
-        g.fillRect((blueTile3*100)+20,422, 99, 99);
-        g.fillRect((blueTile4*100)+20,522, 99, 99);
-        g.fillRect((blueTile5*100)+20,622, 99, 99);
+        g.fillRect((blueTile1*100)+5,122, 99, 99);
+        g.fillRect((blueTile2*100)+5,322, 99, 99);
+        g.fillRect((blueTile3*100)+5,422, 99, 99);
+        g.fillRect((blueTile4*100)+5,522, 99, 99);
+        g.fillRect((blueTile5*100)+5,622, 99, 99);
     }
 
     public void greenTile(Graphics g){
@@ -74,13 +72,19 @@ public class GameTile extends JFrame {
         int greenTile8 = randTiles();
 
         g.setColor(GREEN);
-        g.fillRect((greenTile1*100)+20,23,99,99);
-        g.fillRect((greenTile2*100)+20,123,99,99);
-        g.fillRect((greenTile3*100)+20,223,99,99);
-        g.fillRect((greenTile4*100)+20,323,99,99);
-        g.fillRect((greenTile5*100)+20,423,99,99);
-        g.fillRect((greenTile6*100)+20,523,99,99);
-        g.fillRect((greenTile7*100)+20,623,99,99);
-        g.fillRect((greenTile8*100)+20,723,99,99);
+        g.fillRect((greenTile1*100)+5,23,99,99);
+        g.fillRect((greenTile2*100)+5,123,99,99);
+        g.fillRect((greenTile3*100)+5,223,99,99);
+        g.fillRect((greenTile4*100)+5,323,99,99);
+        g.fillRect((greenTile5*100)+5,423,99,99);
+        g.fillRect((greenTile6*100)+5,523,99,99);
+        g.fillRect((greenTile7*100)+5,623,99,99);
+        g.fillRect((greenTile8*100)+5,723,99,99);
+    }
+
+    public void Piece(Graphics g) {
+
+        g.setColor(Color.YELLOW);
+        g.fillRect(0,23,99,99);
     }
 }
