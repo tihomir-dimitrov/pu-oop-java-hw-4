@@ -20,6 +20,14 @@ public class GameTile extends JFrame {
         boardGrid(g);
     }
 
+    
+    /**
+     *
+     * @param boardGrid - чертае дъската
+     * @param randTiles - за случайния принцип на GPS плочките
+     */
+
+    
     void boardGrid(Graphics g) {
         g.setColor(Color.black);
         for (int i = 0; i <= 700; i += 100) {
