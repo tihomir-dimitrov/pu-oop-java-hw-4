@@ -1,6 +1,7 @@
 package Game;
 
-import StartPiece.StartingTile;
+import StartPiece.Piece;
+import WindowMessage.WindowMessage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class GameBoard extends JFrame implements MouseListener {
-    private Object ChosenPieces;
-    private Object[][] PieceCollection;
-    public static int madeMoves = 0;
-
+    private Piece selectedPiece;
+    private Piece[][] PieceCollection;
 
     public GameBoard() {
         this.setSize(800, 800);
@@ -29,9 +28,9 @@ public class GameBoard extends JFrame implements MouseListener {
                 tile.greenTile(g);
                 tile.blueTile(g);
                 tile.boardGrid(g);
+                tile.Piece(g);
+                tile.render(g);
                 this.renderGamePiece(g, row, col);
-                StartingTile s1 = new StartingTile(row, col);
-                s1.render(g);
             }
         }
     }
@@ -41,11 +40,26 @@ public class GameBoard extends JFrame implements MouseListener {
         int row = this.getBoardDimention(e.getY());
         int col = this.getBoardDimention(e.getX());
 
-        if (this.isFull(row, col)) {
-            this.ChosenPieces = this.getPiece(row, col);
+        if (this.selectedPiece != null) {
+
+            Piece p = this.selectedPiece;
+
+            if (p.isMoveValid(row, col)) {
+
+                movePiece(row, col, p);
+                this.repaint();
+                return;
+            }
+        } else {
+
+            WindowMessage.render(this, "Внимание", "Недостъпен GPS координат");
+            return;
+        }
+
+        if (this.hasBoardPiece(row, col)) {
+            this.selectedPiece = (Piece) this.getBoardPiece(row, col);
         }
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -67,39 +81,36 @@ public class GameBoard extends JFrame implements MouseListener {
 
     }
 
-    private void movePiece(int row, int col, StartingTile s1) {
+    private void movePiece(int row, int col, Piece p) {
 
-        int initialRow = s1.getRow();
-        int initialCol = s1.getCol();
+        int initialRow = p.getRow();
+        int initialCol = p.getCol();
 
-        s1.Movements(row, col);
+        p.Movements(row, col);
 
-        this.PieceCollection[s1.getRow()][s1.getCol()] = this.ChosenPieces;
+        this.PieceCollection[p.getRow()][p.getCol()] = this.selectedPiece;
         this.PieceCollection[initialRow][initialCol] = null;
-
-        this.ChosenPieces = null;
+        this.selectedPiece = null;
     }
 
     private int getBoardDimention(int Placements) {
         return Placements / GameTile.FIELD_SIZE;
     }
 
-    private boolean isFull(int row, int col){
-        return this.getPiece(row, col) != null;
+    private boolean hasBoardPiece(int row, int col){
+        return this.getBoardPiece(row, col) != null;
     }
 
-    private Object getPiece(int row, int col) {
+    private Object getBoardPiece(int row, int col) {
         return this.PieceCollection[row][col];
     }
+
     private void renderGamePiece(Graphics g, int row, int col) {
 
-        if(this.isFull(row, col)) {
+        if (this.hasBoardPiece(row, col)) {
 
-            GameBoard g1 = (GameBoard) this.getPiece(row, col);
-            g1.render(g);
+            Piece p = (Piece) this.getBoardPiece(row, col);
+            p.render(g);
         }
-    }
-
-    private void render(Graphics g) {
     }
 }
